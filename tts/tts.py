@@ -2,14 +2,11 @@ from openai import OpenAI
 import pygame
 from dotenv import load_dotenv
 import os
-os.environ['SDL_AUDIODRIVER'] = 'pulse'
-pygame.mixer.init(frequency=22050, size=-16, channels=2)
-
-
-# Load environment variables from .env file
-load_dotenv()
 
 def tts(content: str):
+
+    load_dotenv()
+    
     client = OpenAI()
 
     response = client.audio.speech.create(
@@ -22,6 +19,7 @@ def tts(content: str):
     response.stream_to_file(filename)
 
     # Initialize pygame mixer
+    pygame.mixer.init()
     pygame.mixer.music.load(filename)
     pygame.mixer.music.play()
 
@@ -29,4 +27,4 @@ def tts(content: str):
     while pygame.mixer.music.get_busy():
         pygame.time.Clock().tick(10)
 
-tts('Hello world! This is a text to speech test.')
+tts('The police in the Northeast have been cut again and again and agin. How do you respond to families who have been the victims of crime and hold you responsible?')
