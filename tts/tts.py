@@ -28,3 +28,4 @@ def tts(content: str):
         pygame.time.Clock().tick(10)
 
 tts('The police in the Northeast have been cut again and again and agin. How do you respond to families who have been the victims of crime and hold you responsible?')
+
