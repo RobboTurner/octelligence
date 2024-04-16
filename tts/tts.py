@@ -11,7 +11,7 @@ def tts(content: str):
 
     load_dotenv()
     
-    client = api_key="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"
+    client = api_key=""
 
     response = client.audio.speech.create(
         model="tts-1",
