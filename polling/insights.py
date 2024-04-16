@@ -6,7 +6,7 @@ import json
 import os
 
 #  This hallucinates quite a bit
-def query_openai_with_polling_data(user_query):
+def get_insights(user_query):
 
     load_dotenv()
     client = anthropic.Anthropic(api_key = os.getenv("ANTHROPIC_KEY"))
@@ -77,5 +77,5 @@ def query_openai_with_polling_data(user_query):
 
 # Example usage:
 user_query = "I am giving a speech on policing in the North East."
-result = query_openai_with_polling_data(user_query)
+result = get_insights(user_query)
 print(result)
