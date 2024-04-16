@@ -1,3 +1,4 @@
+
 import anthropic
 import pandas as pd
 import os
@@ -6,10 +7,25 @@ from pprint import pprint
 from newscatcherapi_client import Newscatcher, ApiException
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import ChatPromptTemplate
+import pandas as pd 
 
-model = ChatAnthropic(model_name='claude-3-haiku-20240307', temperature=0.6, api_key=api_key)
+
+from dotenv import load_dotenv, dotenv_values
+
+
+load_dotenv() 
+claude_api_key = os.getenv("ANTHROPIC_KEY")
+news_catcher_api_key = os.getenv("NEWS_CATCHER_API")
+
+
+newscatcher = Newscatcher(api_key = news_catcher_api_key)
+
+client = anthropic.Anthropic(api_key = claude_api_key)
+
+
+model = ChatAnthropic(model_name='claude-3-haiku-20240307', temperature=0.6, api_key=claude_api_key)
 def generate_terms(topic = "policing"):
-    total_prompt = f"""Generate diverse, single word search terms for news articles based on this topic {topic}
+    total_prompt = f"""Generate diverse single word search terms for news articles based on this topic {topic}
     Only return a python list of keywords.
     """
     output = model.invoke(total_prompt)
@@ -86,3 +102,13 @@ def generate_summary(summary_list):
         )
         succinct_summary.append(message.content)
     return succinct_summary 
+
+
+
+def newscatcher_main(query):
+    test_terms = generate_terms(query)
+    test_query = create_newscatcher_query(test_terms)
+    test_nc_output = query_newscatcher(test_query)
+    test_summary_text = extract_summary_texts(test_nc_output)
+    test_output = generate_summary(test_summary_text)
+    return test_output
