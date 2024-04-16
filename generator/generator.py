@@ -2,13 +2,6 @@ import anthropic
 import os 
 from dotenv import load_dotenv, dotenv_values
 
-load_dotenv() 
-api_key = os.getenv("ANTHROPIC_KEY")
-
-client = anthropic.Anthropic(
-    api_key=api_key,
-)
-
 def question_generator(articles:dict,
                        style: str):
         message = client.messages.create(
