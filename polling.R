@@ -25,7 +25,7 @@ read_function <- function(sheet, filename) {
   return(table)
 }
 
-filename = "/Users/christophersteinberg/Downloads/savanta_data/Omni_W184_HomelessAndPolicePR_tables_Private.xlsx"
+filename = "savanta_data/Omni_W184_HomelessAndPolicePR_tables_Private.xlsx"
 
 sheets = excel_sheets(filename)[2:25]
 
