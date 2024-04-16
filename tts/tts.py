@@ -31,12 +31,12 @@ def tts(content: str):
     while pygame.mixer.music.get_busy():
         pygame.time.Clock().tick(10)
 
-tts('The police in the Northeast have been cut again and again and agin. How do you respond to families who have been the victims of crime and hold you responsible?')
+    tts('The police in the Northeast have been cut again and again and agin. How do you respond to families who have been the victims of crime and hold you responsible?')
     response = client.audio.speech.create(
-        model="tts-1",
-        voice="alloy",
-        input=content,
-    )
+            model="tts-1",
+            voice="alloy",
+            input=content,
+        )
 
     filename = "output.mp3"
     response.stream_to_file(filename)
