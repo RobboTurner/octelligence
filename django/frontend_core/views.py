@@ -4,10 +4,10 @@ from django.http import JsonResponse
 import sys
 sys.path.append('../')
 from generator.generator import question_generator
+from tts.tts import tts
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
-import re
-# Create your views here.
+
 
 
 
@@ -28,17 +28,28 @@ user_input_styles = {
 }
 
 
-
 def handle_search_query(request):
     if request.method == "POST":
-        input_text = request.POST.get('inputText')  # Default to empty string if not found
+        # Get input text from user searc h
+        input_text = request.POST.get('inputText')  
+        # Pass this into the question generator and return the output in the UI
+        #llm_output = query_news(input_text)
         llm_output = question_generator(input_text,news_articles, user_input_styles)
-        #response_text = f"Processed: {input_text}"  # This can be used if neede
-        #print(response_text)
+
     else:
         question = "Please submit some input."
     return render(request, 'homepage.html', {'question': llm_output})
+ 
 
-
+#def text_to_speech(request):
+#    if request.method == "POST":
+#    llm_output = question_generator(input_text,news_articles, user_input_styles)
+##    input_text = request.POST.get('inputText')  
+#    wav_file = tts(llm_output)
+#    else:
+#        ""
+#    return render(request, 'homepage.html', {'question': llm_output})
+  #      question = "Please submit some input."
+  #  return render(request, 'homepage.html', {'question': wav_file})
 
     
