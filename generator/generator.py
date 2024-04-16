@@ -10,7 +10,8 @@ client = anthropic.Anthropic(
 )
 
 def question_generator(articles:dict,
-                       style: str):
+                       style: str,
+                       prompt: str = "ministerial interview"):
         message = client.messages.create(
         model="claude-3-opus-20240229",
         max_tokens=1000,
@@ -29,7 +30,7 @@ def question_generator(articles:dict,
                 "content": [
                     {
                         "type": "text",
-                        "text": f'Based on the articles provided: {articles}, craft a question in the style of a {style} journalist.   DO NOT INCLUDE THE NAME OR TITLE OF THE PERSON YOU ARE INTERVIEWING. The questioner may not be the subject of the news story.'
+                        "text": f'Based on the articles provided: {articles}, craft a question in the style of a {style} journalist in the context of {prompt}.   DO NOT INCLUDE THE NAME OR TITLE OF THE PERSON YOU ARE INTERVIEWING. The questioner may not be the subject of the news story.'
 
                     }
                 ]

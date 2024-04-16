@@ -9,7 +9,7 @@ from langchain_core.prompts import ChatPromptTemplate
 
 model = ChatAnthropic(model_name='claude-3-haiku-20240307', temperature=0.6, api_key=api_key)
 def generate_terms(topic = "policing"):
-    total_prompt = f"""Generate diverse search terms for news articles based on this topic {topic}
+    total_prompt = f"""Generate diverse, single word search terms for news articles based on this topic {topic}
     Only return a python list of keywords.
     """
     output = model.invoke(total_prompt)
