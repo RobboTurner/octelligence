@@ -10,7 +10,7 @@ from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 
 from generator.generator import question_generator
-from newscatcher.newscatcher import query_newscatcher
+from newscatcher.newscatcher import newscatcher_main
 
 
 def home_view(request):
@@ -21,15 +21,14 @@ def handle_search_query(request):
     if request.method == "POST":
         # Get input text from user searc h
         input_text = request.POST.get('inputText')  
+        print(input_text)
         # Pass this into the question generator and return the output in the UI
-        newcatcher_output = query_newscatcher(input_text)
-        print(newcatcher_output)
-        llm_output = question_generator(newcatcher_output,"Happy")
-        #out = llm_output[0][0].text
+        newcatcher_output = newscatcher_main(str(input_text))
+        #llm_output = question_generator(newcatcher_output,"Happy")
         #print(out)
     else:
         question = "Please submit some input."
-    return render(request, 'homepage.html', {'question': llm_output})
+    return render(request, 'homepage.html', {'question': newcatcher_output[0][0].text})
  
 
 #def text_to_speech(request):
