@@ -2,12 +2,12 @@ import anthropic
 import os 
 from dotenv import load_dotenv, dotenv_values
 
-load_dotenv() 
-api_key = os.getenv("ANTHROPIC_KEY")
+#load_dotenv() 
+#api_key = os.getenv("ANTHROPIC_KEY")
 
-client = anthropic.Anthropic(
-    api_key=api_key,
-)
+#client = anthropic.Anthropic(
+#    api_key=api_key,
+#)
 
 news_articles = {
     "Article_1": "Advances in Quantum Computing Set to Revolutionize Data Security - Recent breakthroughs in quantum computing are poised to transform the landscape of data security, with new algorithms capable of solving complex encryption problems that are currently unsolvable with classical computers. Experts predict that within the next decade, quantum computers will begin to impact every industry reliant on data security, from banking to national defense. Leading the charge, QuantumTech Inc. announced a successful test of their prototype quantum processor that promises to enhance cryptographic processes exponentially.",
@@ -24,7 +24,13 @@ user_input_styles = {
 user_input_styles['Hostile']
 
 
-def question_generator(articles:dict,style:dict):
+def question_generator(user_input,articles:dict,style:dict):
+        load_dotenv() 
+        api_key = os.getenv("ANTHROPIC_KEY")
+
+        client = anthropic.Anthropic(
+            api_key=api_key,
+        )
         message = client.messages.create(
         model="claude-3-opus-20240229",
         max_tokens=1000,
@@ -37,19 +43,19 @@ def question_generator(articles:dict,style:dict):
                 "content": [
                     {
                         "type": "text",
-                        "text": f'Based on the articles provided: {articles}, craft a question in the style of a {style["Hostile"]} journalist.'
+                        "text": f'I am a user interested in the topic {user_input}, ask me a question about this topic'
 
                     }
                 ]
             }
         ]
     )
-        return print(message.content)
+        return message.content
 
 
-def main():
-    question_generator(news_articles,user_input_styles)
+#def main():
+#    question_generator(news_articles,user_input_styles)
 
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+ #   main()
