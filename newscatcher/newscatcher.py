@@ -1,3 +1,12 @@
+import anthropic
+import pandas as pd
+import os
+import re
+from pprint import pprint
+from newscatcherapi_client import Newscatcher, ApiException
+from langchain_anthropic import ChatAnthropic
+from langchain_core.prompts import ChatPromptTemplate
+
 model = ChatAnthropic(model_name='claude-3-haiku-20240307', temperature=0.6, api_key=api_key)
 def generate_terms(topic = "policing"):
     total_prompt = f"""Generate diverse search terms for news articles based on this topic {topic}
