@@ -6,7 +6,6 @@ load_dotenv()
 api_key = os.getenv("ANTHROPIC_KEY")
 
 client = anthropic.Anthropic(
-    # defaults to os.environ.get("ANTHROPIC_API_KEY")
     api_key=api_key,
 )
 
@@ -19,8 +18,9 @@ news_articles = {
 
 user_input_styles = {
     "Hostile" : "Hostile journalsit",
-     "Friendly": "Friendly journalsit"
+    "Friendly": "Friendly journalsit"
 }
+
 user_input_styles['Hostile']
 
 

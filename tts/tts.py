@@ -9,3 +9,4 @@ response = client.audio.speech.create(
 )
 
 response.stream_to_file("output.mp3")
+
