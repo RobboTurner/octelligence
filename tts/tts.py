@@ -1,15 +1,10 @@
-
-from dotenv import load_dotenv, dotenv_values
-import os 
-
 from openai import OpenAI
 import pygame
-from dotenv import load_dotenv
-import os
+#from dotenv import load_dotenv
+#import os
 
 def tts(content: str):
 
-    load_dotenv()
     
     client = OpenAI()
 
