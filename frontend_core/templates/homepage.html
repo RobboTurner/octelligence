@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block content %}
+<style>
+  input,
+  #output {
+    margin-top: 20px;
+    padding: 10px;
+    width: 80%;
+    box-sizing: border-box;
+  }
+  #output {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    min-height: 150px;
+  }
+</style>
+
+<div
+  style="
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  "
+>
+  <input
+    type="text"
+    id="inputText"
+    placeholder="Enter your text here"
+    oninput="updateOutput()"
+  />
+  <div id="output">LLM Output :</div>
+</div>
+
+<script>
+  function updateOutput() {
+    const inputText = document.getElementById("inputText").value;
+    // Replace this part with your AJAX call to the Django backend to process the input and get output from the LLM
+    document.getElementById("output").innerText = "LLM: " + inputText;
+  }
+</script>
+{% endblock %}
