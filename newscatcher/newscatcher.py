@@ -21,10 +21,10 @@ def extract_bracket_contents(text):
     return [text.strip(" '") for text in list_of_terms]
 
 def create_newscatcher_query(terms):
-    query_result = ""
+    query_result = "("
     for word in terms:
         if word == terms[-1]:
-            query_result += "(" + word + ")"
+            query_result += "(" + word + ")) AND Britain"
         else:
             query_result += "(" + word + ")" + " OR "
     return query_result
@@ -42,26 +42,28 @@ def query_newscatcher(query=""):
                                       include_nlp_data = True)
     else:
         return newscatcher.search.get(q=query,
-                                      search_in="summary",
+                                      search_in="content",
                                       lang = "en",
-                                      predefined_sources = "top 30 GB",
-                                      from_ = "2 days ago",
+                                      predefined_sources = "top 100 GB",
+                                      from_ = "7 days ago",
                                       clustering_enabled = True,
                                       page_size = 1000,
                                       include_nlp_data = True)
 
-def extract_article_summaries(newscatcher_output):
-    cluster_list = [x["articles"] for x in newscatcher_output.dict()["clusters"]][:5]
+
+def extract_summary_texts(newscatcher_output):
     summary_list = []
+    cluster_list = [x["articles"] for x in newscatcher_output.dict()["clusters"]][:5]
     for cluster in cluster_list:
         summary_text=""
         for article in cluster:
             summary_text += " ``` " + article["nlp"]["summary"]
         summary_list.append(summary_text)
         
-    return summary_list
+    return summary_list   
 
-def generate_cluster_summary(summary_list):
+
+def generate_summary(summary_list):
     succinct_summary = []
     for summary in summary_list:
         message = client.messages.create(
@@ -84,4 +86,3 @@ def generate_cluster_summary(summary_list):
         )
         succinct_summary.append(message.content)
     return succinct_summary 
-
