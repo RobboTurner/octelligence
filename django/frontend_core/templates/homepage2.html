@@ -1,43 +1,40 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+{% block content %}
 <style>
-  input,
-  #output {
+  input, button {
     margin-top: 20px;
     padding: 10px;
-    width: 80%;
     box-sizing: border-box;
   }
   #output {
     background-color: #f4f4f4;
     border: 1px solid #ddd;
     min-height: 150px;
+    margin-top: 20px;
+    width: 80%;
   }
 </style>
 <div
   style="
     width: 100%;
-    flex-direction: column;
+    display: flex;
+    flex-direction: row; /* Changed from column to row */
     align-items: center;
     justify-content: center;
   "
 >
-  <form method="post" action="{% url 'handle_search_query' %}">
+  <form method="post" action="{% url 'handle_search_query' %}" style="display: flex; align-items: center;">
     {% csrf_token %}
     <input
-      style="margin-top: 0px"
       type="text"
       id="inputText"
       name="inputText"
       placeholder="Enter your text here"
+      style="margin-right: 10px;" /* Added margin right for spacing between elements */
     />
     <button type="submit" class="govuk-button">Submit</button>
   </form>
-  <div id="output">{{ question }}</div>
 </div>
-<div class="practice_questions"></div>
-
-<div class="audio_output">
-  <button type="submit" class="govuk-button">Listen</button>
-</div>
+<div id="output" style="width: 80%; margin: 20px auto;">{{ question }}</div>
 
 {% endblock %}
