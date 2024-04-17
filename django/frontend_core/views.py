@@ -31,17 +31,17 @@ def handle_search_query(request):
         # Pass this into the question generator and return the output in the UI
         newcatcher_output = newscatcher_main(str(input_text))
         
-        # Get the top five articles from the news catch_output 
-        top_5_articles = [newcatcher_output[0][0].text,
-                          newcatcher_output[1][0].text,
+        # Get the top five articles from the news catch_output  , skips the first questions
+        top_5_articles = [newcatcher_output[1][0].text,
                           newcatcher_output[2][0].text,
                           newcatcher_output[3][0].text,
-                          newcatcher_output[4][0].text]
+                          newcatcher_output[4][0].text,
+                          newcatcher_output[5][0].text]
   
 
-        llm_output_1 = question_generator(top_5_articles,question_generator_mood)
-        llm_output_2 = question_generator(top_5_articles,question_generator_mood)
-        llm_output_3 = question_generator(top_5_articles,question_generator_mood)
+        llm_output_1 = question_generator(newcatcher_output[1][0].text,question_generator_mood,input_text)
+        llm_output_2 = question_generator(newcatcher_output[2][0].text,question_generator_mood,input_text)
+        llm_output_3 = question_generator(newcatcher_output[3][0].text,question_generator_mood,input_text)
 
         questions = [llm_output_1[0].text,llm_output_2[0].text,llm_output_3[0].text]
 

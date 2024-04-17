@@ -78,30 +78,12 @@
     <input style="margin-top: 0px ; margin-bottom: 20px;" type="text" id="inputText" name="inputText"
       placeholder="Query the News API on the Briefing to the PM" />
     <button style="margin-bottom: 10px !important" type="submit" class="govuk-button">Submit</button>
-    <h2 class="govuk-body">Pollling results </h2>
-    <div style="display:flex; width: 80%;">
-      <div style="margin-bottom: 20px; display: flex; flex-direction: column; min-height: 150px; margin-right: 20px;"
-        id="output">
-        {% for data in polling_data%}
-        {{ data }}
-        {% endfor %}
-        <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;">
-          <p class="govuk-body animated-dots" style="color: #888;">Listening</p>
-        </div>
-      </div>
-      <div style="margin-bottom: 20px; display: flex; flex-direction: column; min-height: 150px;" id="output">
-        <!-- Content of the second div -->
-        <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;">
-          <p class="govuk-body animated-dots" style="color: #888;">Listening</p>
-        </div>
-      </div>
-    </div>
-    <h2 class="govuk-body">Summary of news articles </h2>
+    <h2 class="govuk-body">Top audiences from polling </h2>
     <div style="margin-bottom: 20px; display: flex;flex-direction: column; min-height: 150px;" id="output">
       {% if questions_dict %}
-      {% for article in articles %}
+      {% for polling_data in polling_data %}
       <ul class="govuk-list govuk-list--bullet">
-        <li>{{ article }}</li>
+        <li>{{ polling_data }}</li>
       </ul>
       {% endfor %}
       {% else %}
@@ -110,38 +92,53 @@
       </div>
       {% endif %}
     </div>
-    <h2 class="govuk-body" stlye="color: #888 !important;">Question generated related to briefing query</h2>
-    <div style="margin-bottom: 20px; display: flex; flex-direction: column;  min-height: 150px;" class="output"
-      id="output">
-      {% if questions_dict %}
-      {% for questions in questions_dict %}
-      <ul class="govuk-list govuk-list--bullet">
-        <li>{{ questions }}</li>
-      </ul>
-      {% endfor %}
-      {% else %}
-      <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;">
-        <p class="govuk-body animated-dots" style="color: #888;">Listening</p>
-      </div>
-      {% endif %}
-    </div>
-    <div style="margin-bottom: 20px; display: flex; flex-direction: row; align-items: center;">
-      <p class="govuk-body" style=" color: #6c7676; margin-bottom: 0px !important"> Set the conversational style of
-        questions </p>
-      <label class="govuk-radios__item"
-        style="display: inline-flex;align-items: center;margin-right: 10px;margin-bottom:0px !important;color: #6c7676;padding-left: 7px !important;"><input
-          type="radio" name="Radio_input" value="Adversarial" />Adversarial</label>
-      <label class="govuk-radios__item"
-        style=" margin-bottom:0px !important; display: inline-flex; align-items: center; color:  #6c7676; padding-left: 7px !important;"><input
-          type="radio" name="Radio_input" value="Neutral" /> Neutral</label>
 
-    </div>
+</div>
+<h2 class="govuk-body">Summary of news articles </h2>
+<div style="margin-bottom: 20px; display: flex;flex-direction: column; min-height: 150px;" id="output">
+  {% if questions_dict %}
+  {% for article in articles %}
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ article }}</li>
+  </ul>
+  {% endfor %}
+  {% else %}
+  <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;">
+    <p class="govuk-body animated-dots" style="color: #888;">Listening</p>
+  </div>
+  {% endif %}
+</div>
+<h2 class="govuk-body" stlye="color: #888 !important;">Question generated related to briefing query</h2>
+<div style="margin-bottom: 20px; display: flex; flex-direction: column;  min-height: 150px;" class="output" id="output">
+  {% if questions_dict %}
+  {% for questions in questions_dict %}
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ questions }}</li>
+  </ul>
+  {% endfor %}
+  {% else %}
+  <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;">
+    <p class="govuk-body animated-dots" style="color: #888;">Listening</p>
+  </div>
+  {% endif %}
+</div>
+<div style="margin-bottom: 20px; display: flex; flex-direction: row; align-items: center;">
+  <p class="govuk-body" style=" color: #6c7676; margin-bottom: 0px !important"> Set the conversational style of
+    questions </p>
+  <label class="govuk-radios__item"
+    style="display: inline-flex;align-items: center;margin-right: 10px;margin-bottom:0px !important;color: #6c7676;padding-left: 7px !important;"><input
+      type="radio" name="Radio_input" value="Adversarial" />Adversarial</label>
+  <label class="govuk-radios__item"
+    style=" margin-bottom:0px !important; display: inline-flex; align-items: center; color:  #6c7676; padding-left: 7px !important;"><input
+      type="radio" name="Radio_input" value="Neutral" /> Neutral</label>
 
-  </form>
+</div>
 
-  <hr style="width: 100%; align-self: center;">
+</form>
+
+<hr style="width: 100%; align-self: center;">
 
 
 
 
-  {% endblock %}
+{% endblock %}
