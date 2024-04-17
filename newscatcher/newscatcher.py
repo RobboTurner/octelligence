@@ -93,7 +93,7 @@ def generate_summary(summary_list):
                     "content": [
                         {
                             "type": "text",
-                            "text": f'Summarise the following content separated by ``` into one sentance: {summary}.'
+                            "text": f'Summarise the following content separated by ``` into one sentance: {summary}. Keep each summary at max, 32 words.'
                             
                         }
                     ]

@@ -2,42 +2,144 @@
 <style>
   input,
   #output {
-    margin-top: 20px;
+    margin-top: 0px;
     padding: 10px;
     width: 80%;
     box-sizing: border-box;
   }
+
   #output {
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     border: 1px solid #ddd;
     min-height: 150px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .13), 0 1px 1px 0 rgba(0, 0, 0, .11);
+  }
+
+  .govuk-list--bullet li {
+    transition: color 0.3s ease;
+    /* Smooth transition for the color change */
+  }
+
+
+  .govuk-list--bullet li:hover {
+    color: #007BFF;
+    /* A pleasing shade of blue; adjust as needed */
+    background-color: #ddd;
+    /* Grey background on hover */
+    padding: 5px;
+    /* Padding to increase space inside li on hover */
+    border-radius: 5px;
+    /* Rounded corners for aesthetic */
+  }
+
+  @keyframes dots {
+
+    0%,
+    20% {
+      content: '';
+    }
+
+    40% {
+      content: '.';
+    }
+
+    60% {
+      content: '..';
+    }
+
+    80% {
+      content: '...';
+    }
+
+    100% {
+      content: '....';
+    }
+  }
+
+  .govuk-body.animated-dots {
+    margin-bottom: 0px;
+  }
+
+  .animated-dots::after {
+    content: '';
+    animation: dots 1.5s steps(1, end) infinite;
   }
 </style>
-<div
-  style="
+<div style="
     width: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  "
->
-  <form method="post" action="{% url 'handle_search_query' %}">
+  ">
+  <h2 class="govuk-heading-m">Ministerial Briefing Toolkit</h2>
+  <form style="margin-bottom: 10px !important" class="govuk-form-group" method="post"
+    ction="{% url 'handle_search_query' %}">
     {% csrf_token %}
-    <input
-      style="margin-top: 0px"
-      type="text"
-      id="inputText"
-      name="inputText"
-      placeholder="Enter your text here"
-    />
-    <button type="submit" class="govuk-button">Submit</button>
-  </form>
-  <div id="output">{{ question }}</div>
+    <input style="margin-top: 0px ; margin-bottom: 20px;" type="text" id="inputText" name="inputText"
+      placeholder="Query the News API on the Briefing to the PM" />
+    <button style="margin-bottom: 10px !important" type="submit" class="govuk-button">Submit</button>
+    <h2 class="govuk-body">Pollling results </h2>
+    <div style="display:flex; width: 80%;">
+      <div style="margin-bottom: 20px; display: flex; flex-direction: column; min-height: 150px; margin-right: 20px;"
+        id="output">
+        <!-- Content of the first div -->
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;">
+          <p class="govuk-body animated-dots" style="color: #888;">Listening</p>
+        </div>
+      </div>
+      <div style="margin-bottom: 20px; display: flex; flex-direction: column; min-height: 150px;" id="output">
+        <!-- Content of the second div -->
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;">
+          <p class="govuk-body animated-dots" style="color: #888;">Listening</p>
+        </div>
+      </div>
+    </div>
 </div>
-<div class="practice_questions"></div>
+<h2 class="govuk-body">Summary of news articles </h2>
+<div style="margin-bottom: 20px; display: flex;flex-direction: column; min-height: 150px;" id="output">
+  {% if questions_dict %}
+  {% for article in articles %}
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ article }}</li>
+  </ul>
+  {% endfor %}
+  {% else %}
+  <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;">
+    <p class="govuk-body animated-dots" style="color: #888;">Listening</p>
+  </div>
+  {% endif %}
+</div>
+<h2 class="govuk-body" stlye="color: #888 !important;">Question generated related to briefing query</h2>
+<div style="margin-bottom: 20px; display: flex; flex-direction: column;  min-height: 150px;" class="output" id="output">
+  {% if questions_dict %}
+  {% for questions in questions_dict %}
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ questions }}</li>
+  </ul>
+  {% endfor %}
+  {% else %}
+  <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-end;">
+    <p class="govuk-body animated-dots" style="color: #888;">Listening</p>
+  </div>
+  {% endif %}
+</div>
+<div style="margin-bottom: 20px; display: flex; flex-direction: row; align-items: center;">
+  <p class="govuk-body" style=" color: #6c7676; margin-bottom: 0px !important"> Set the conversational style of
+    questions </p>
+  <label class="govuk-radios__item"
+    style="display: inline-flex;align-items: center;margin-right: 10px;margin-bottom:0px !important;color: #6c7676;padding-left: 7px !important;"><input
+      type="radio" name="Radio_input" value="Adversarial" />Adversarial</label>
+  <label class="govuk-radios__item"
+    style=" margin-bottom:0px !important; display: inline-flex; align-items: center; color:  #6c7676; padding-left: 7px !important;"><input
+      type="radio" name="Radio_input" value="Neutral" /> Neutral</label>
 
-<div class="audio_output">
-  <button type="submit" class="govuk-button">Listen</button>
 </div>
+
+</form>
+
+<hr style="width: 100%; align-self: center;">
+
+
+
 
 {% endblock %}

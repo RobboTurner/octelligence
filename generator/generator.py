@@ -15,13 +15,12 @@ def question_generator(articles:dict,
         message = client.messages.create(
         model="claude-3-opus-20240229",
         max_tokens=1000,
-        temperature=0,
+        temperature=0.9,
         system="""
-        You are a journalist crafting a single challenging question for a press conference with a government minister.
-            
+        You are a journalist a 5 challenging question for a press conference with a government minister.
             Your question should be direct, provocative, and concise. Only include the question and not context for the prompt.
 
-            
+
             """,  # <-- system prompt
         messages=[
             {
@@ -37,4 +36,4 @@ def question_generator(articles:dict,
             }
         ]
     )
-        return print(message.content)
+        return message.content

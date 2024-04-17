@@ -1,0 +1,111 @@
+{% extends "base.html" %} {% block content %}
+<style>
+  input,
+  #output,
+  #output2 {
+    margin-top: 0px;
+    padding: 10px;
+    width: 80%;
+    box-sizing: border-box;
+  }
+  #output,
+  #output2 {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    min-height: 150px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13), 0 1px 1px 0 rgba(0, 0, 0, 0.11);
+  }
+  .govuk-list--bullet li {
+    transition: color 0.3s ease; /* Smooth transition for color change */
+  }
+  .govuk-list--bullet li:hover {
+    color: #007bff; /* Blue color on hover */
+  }
+  @keyframes dots {
+    0%,
+    20% {
+      content: "";
+    }
+    40% {
+      content: ".";
+    }
+    60% {
+      content: "..";
+    }
+    80% {
+      content: "...";
+    }
+    100% {
+      content: "....";
+    }
+  }
+  .animated-dots::after {
+    content: "";
+    animation: dots 1.5s steps(1, end) infinite;
+  }
+</style>
+<div
+  style="
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  "
+>
+  <form
+    style="margin-bottom: 10px; width: 80%; display: flex"
+    class="govuk-form-group"
+    method="post"
+    action="{% url 'handle_search_query' %}"
+  >
+    {% csrf_token %}
+    <input
+      type="text"
+      id="inputText"
+      name="inputText"
+      placeholder="Query the News API on the Briefing to the PM"
+      style="flex: 1; margin-right: 10px"
+    />
+    <button type="submit" class="govuk-button">Submit</button>
+  </form>
+
+  <div style="display: flex; width: 100%; justify-content: space-between">
+    <!-- Main Content 2/3 -->
+    <div style="width: 66%">
+      <div id="output">
+        {% if questions_dict %} {% for article in articles %}
+        <ul class="govuk-list govuk-list--bullet">
+          <li>{{ article }}</li>
+        </ul>
+        {% endfor %} {% else %}
+        <p class="govuk-body animated-dots" style="color: #888">listening</p>
+        {% endif %}
+      </div>
+      <div class="output" id="output2">
+        {% if questions_dict %}
+        <p class="govuk-body">{{ questions_dict }}</p>
+        {% else %}
+        <p class="govuk-body animated-dots" style="color: #888">listening</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Right Side Content 1/3 -->
+    <div
+      style="
+        width: 33%;
+        min-height: 150px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      "
+    >
+      <p>Right side content here</p>
+      <!-- Additional right side elements here if needed -->
+    </div>
+  </div>
+</div>
+{% endblock %}
