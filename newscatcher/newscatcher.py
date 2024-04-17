@@ -84,7 +84,7 @@ def generate_summary(summary_list):
     for summary in summary_list:
         message = client.messages.create(
             model="claude-3-sonnet-20240229",
-            max_tokens=1000,
+            max_tokens=200,
             temperature=0,
             messages=[
                 {

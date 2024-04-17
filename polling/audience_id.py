@@ -10,7 +10,7 @@ def get_audiences(user_query):
     client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_KEY"))
 
     # Connect to SQLite database
-    conn = sqlite3.connect('polling/data/polling.db')
+    conn = sqlite3.connect('/Users/mawuliagamah/gitprojects/octelligence/polling/data/polling.db')
     cursor = conn.cursor()
 
     # Fetch all unique questions from the database
@@ -70,7 +70,7 @@ def get_audiences(user_query):
         evidence = "; ".join([f"Question: '{d[0]}', {d[1]} (value: {d[2]})" for d in details])
         summary.append(f"Demographic: {demographic} - {evidence}")
 
-    summary = "\n".join(summary)
+    #summary = "\n".join(summary)
 
     # Close database connection
     conn.close()
@@ -78,5 +78,5 @@ def get_audiences(user_query):
     return summary
 
 user_query = "I am giving a speech on policing in the North East."
-summary = get_audiences(user_query)
-print(summary)
+# summary = get_audiences(user_query)
+# print(summary)

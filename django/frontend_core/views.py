@@ -14,7 +14,7 @@ from newscatcher.newscatcher import newscatcher_main
 
 
 #from polling.insights import get_insights
-#from polling.audience_id import get_audiences
+from polling.audience_id import get_audiences
 
 
 
@@ -45,9 +45,11 @@ def handle_search_query(request):
 
         questions = [llm_output_1[0].text,llm_output_2[0].text,llm_output_3[0].text]
 
+        polling_data = get_audiences(input_text)
+
     else:
         question = "Please submit some input."
-    return render(request, 'homepage.html', {'articles': top_5_articles,'questions_dict': questions})
+    return render(request, 'homepage.html', {'articles': top_5_articles,'questions_dict': questions, 'polling_data':polling_data})
 
 
 
